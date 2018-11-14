@@ -30,15 +30,15 @@ app.use('/public',express.static(__dirname + '/public'));
  * @param  {[type]} next){} 函数,用于执行下一个和当前路径匹配的函数
  * @return {[type]}           [description]
  */
-app.get('/', (req,res, next)=>{
+/*app.get('/', (req,res, next)=>{
 	//res.send(string)发送内容直客户端
 	// res.send('<h1>欢迎来到我的博客！</h1>')
 	
 	//5读取views目录下的指定文件，解析并返回给客户端
-	//第一个参数：模板的文件相对于views/index.html
+	//第一个参数：模板的文件相对于views/index1.html
 	//第二个参数：传递给模板使用的数据
 	res.render('index');
-})
+})*/
 
 //分模块开发
 app.use('/admin',require('./routers/admin'));

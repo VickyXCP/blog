@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body, .container{
+    width: 100%;
+    height: 100%;
+}
+ul li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+.clearfix:after{
+    display: block;
+    content: '';
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+.top{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #fad6a3;
+    box-shadow: 2px 2px 2px 2px #ccc;
+}
+.top ul{
+    text-align: center;
+}
+.top ul li{
+    display: inline-block;
+    margin-right: 20px;
+}
+.top ul li a{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    color: #32c3dd;
+}
+
+main{
+    position: relative;
+    width: 720px;
+    margin: 0 auto;
+    border: 1px solid red;
+}
+
+.content ul{
+    width: 500px;
+}
+
+.content li{
+    background-color: #fad6a3;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.content h1, .content .article-info{
+    text-align: center;
+}
+
+.content .article-info{
+    margin: 10px 0;
+}
+
+.content .keyWords{
+    margin: 10px 0;
+    color: red;
+}
+
+.register{
+    position: absolute;
+    top: 20px;
+    right: 0;
+    width: 200px;
+    padding: 10px;
+    border: 1px solid green;
+}
+.register .info-title{
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+    font-weight: bold;
+}
+
+.register .input-box label{
+    display: inline-block;
+    width: 50px;
+}
+.register .input-box input{
+    width: calc(100% - 50px);
+}
+.register .reg-btn{
+    text-align: center;
+}
