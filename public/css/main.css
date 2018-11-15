@@ -130,3 +130,9 @@ main {
 .tip {
     text-align: right;
 }
+
+.remind{
+    margin-top: 10px;
+    text-align: center;
+    color: darkred;
+}

@@ -4,6 +4,7 @@ const express = require('express')
 //创建app应用，相当于nodeJs的http.createService
 const app = express()
 // const mongoose = require('mongoose')
+const db = require('./db/db')
 const bodyParser = require('body-parser')
 
 //1.加载模板处理模块
@@ -59,7 +60,15 @@ app.use('/',require('./routers/main'));
 		})
 	}
 })*/
-
-app.listen(8081, ()=>{
-	console.log('Server is running on http://localhost:8081')
+// console.log(db)
+db.on('error', (error)=>{
+	console.log('数据库连接失败：'+error)
 })
+db.on('open', ()=>{
+	console.log('数据库连接成功')
+	app.listen(8081, ()=>{
+		console.log('Server is running on http://localhost:8081')
+	})
+})
+
+

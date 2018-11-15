@@ -14,8 +14,7 @@ $(function () {
 		login = $('.login'),
 		register = $('.register'),
 		userinfo = $('.userinfo'),
-		regRemind = $('.regRemind'),
-		logRemind = $('.logRemind')
+		remind = $('.remind')
 	
 	toLogin.on('click', () => {
 		register.hide()
@@ -40,12 +39,44 @@ $(function () {
 			},
 			dataType: 'json',
 			success: (res)=>{
-				regRemind.html(res.message)
+				console.log(res)
+				remind.html(res.message)
+				setTimeout(()=>{
+					remind.hide()
+				}, 1000)
 				if (!res.code){
 					setTimeout(()=>{
 						login.show()
 						register.hide()
 						userinfo.hide()
+					}, 1000)
+				}
+			}
+		})
+	})
+	
+//	登录
+	login_btn.on('click', ()=>{
+		$.ajax({
+			type: 'post',
+			url: '/api/user/login',
+			data:{
+				username: loginname.val(),
+				password: login_pass.val()
+			},
+			dataType: 'json',
+			success: (res)=>{
+				remind.html(res.message)
+				setTimeout(()=>{
+					remind.hide()
+				}, 1000)
+				if (!res.code){
+					setTimeout(()=>{
+						userinfo.show()
+						userinfo.find('.name').html(res.userInfo.username)
+						userinfo.find('.welcome').html('你好，欢迎光临我的博客')
+						login.hide()
+						register.hide()
 					}, 1000)
 				}
 			}
