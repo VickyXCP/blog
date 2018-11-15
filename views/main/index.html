@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>博客</title>
-  <link rel='stylesheet' href='../../public/css/main.css'>
+  <link rel='stylesheet' href='/public/css/main.css'>
+  <script src='/public/js/jquery-3.3.1.min.js'></script>
+  <script src='/public/js/index.js'></script>
 </head>
 <body>
 <div class='container'>
@@ -51,14 +53,43 @@
           <label for='username'>用户名</label><input id='username'>
         </div>
         <div class='input-box'>
-          <label for='password'>密码</label><input id='password'>
+          <label for='password'>密码</label><input id='password' type='password'>
         </div>
         <div class='input-box'>
-          <label for='con-pass'>确认</label><input id='con-pass'>
+          <label for='con-pass'>确认</label><input id='con-pass' type='password'>
         </div>
-        <div class='reg-btn'>
-          <button>注册</button>
+        <div class='btn'>
+          <button id='reg-btn'>注册</button>
         </div>
+        <div class='tip'>已有账号？<a href='javascript:void(0)' id='toLogin'>马上登录</a> </div>
+        <div class='regRemind'></div>
+      </div>
+      <div class='login hide'>
+        <p class='info-title'>登录</p>
+        <div class='input-box'>
+          <label for='user-name'>用户名</label><input id='user-name'>
+        </div>
+        <div class='input-box'>
+          <label for='pass'>密码</label><input id='pass' type='password'>
+        </div>
+        <div class='btn'>
+          <button id='login-btn'>登录</button>
+        </div>
+        <div class='tip'>还没注册？<a href='javascript:void(0)' id='toReg'>马上注册</a> </div>
+        <div class='logRemind'></div>
+      </div>
+      <div class='userinfo hide'>
+        <p class='info-title'>用户信息</p>
+        <div class='name' id='name'></div>
+        <div class='info' id='info'></div>
+        <div class='btn' id='btn'><button>退出</button></div>
+      </div>
+      <div class='community'>
+        <p class='info-title'>社区</p>
+        <ul>
+          <li><a href=''>制度规则</a> </li>
+          <li><a href=''>社区之家</a> </li>
+        </ul>
       </div>
     </div>
   </main>

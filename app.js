@@ -3,7 +3,8 @@
 const express = require('express')
 //创建app应用，相当于nodeJs的http.createService
 const app = express()
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
 //1.加载模板处理模块
 const ejs = require('ejs')
@@ -22,6 +23,8 @@ app.set('view engine','html')
  */
 //当用户请求的路径ulr以/public开头时，以第二个参数的方式进行处理（直接返回__dirname + '/public'目录下文件）
 app.use('/public',express.static(__dirname + '/public'));
+
+app.use(bodyParser.urlencoded({extended: true}))
 
 /**
  * [description] 给app绑定首页路由，把一个url路径通过一个或多个方法绑定
@@ -46,7 +49,7 @@ app.use('/api',require('./routers/api'));
 app.use('/',require('./routers/main'));
 
 //连接数据库
-mongoose.connect('mongodb://localhost:27017/blog', (err)=>{
+/*mongoose.connect('mongodb://localhost:27017/blog', (err)=>{
 	if (err){
 		console.log(err)
 	} else {
@@ -55,10 +58,8 @@ mongoose.connect('mongodb://localhost:27017/blog', (err)=>{
 			console.log('Server is running on http://localhost:8081')
 		})
 	}
-})
+})*/
 
-/*
 app.listen(8081, ()=>{
 	console.log('Server is running on http://localhost:8081')
 })
-*/
