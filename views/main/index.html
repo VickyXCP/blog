@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>博客</title>
+  <link rel='stylesheet' href='/public/css/common.css'>
   <link rel='stylesheet' href='/public/css/main.css'>
   <script src='/public/js/jquery-3.3.1.min.js'></script>
+  <script src='/public/js/jquery.cookie.js'></script>
   <script src='/public/js/index.js'></script>
 </head>
 <body>
@@ -25,28 +27,46 @@
         <li>
           <h1>NodeJS开发web</h1>
           <div class='article-info'>
-              <span><span>作者：</span><a href=''>racts</a> </span>
-              <span><span>时间：</span><a href=''>2018年10月</a> </span>
-              <span><span>阅读：</span><a href=''>121</a> </span>
-              <span><span>评论：</span><a href=''>0</a> </span>
+            <span><span>作者：</span><a href=''>racts</a> </span>
+            <span><span>时间：</span><a href=''>2018年10月</a> </span>
+            <span><span>阅读：</span><a href=''>121</a> </span>
+            <span><span>评论：</span><a href=''>0</a> </span>
           </div>
           <div class='keyWords'>NodeJs的发展历程</div>
-          <div class='readall'><button onclick=''>阅读全文</button></div>
+          <div class='readall'>
+            <button onclick=''>阅读全文</button>
+          </div>
         </li>
         <li>
           <h1>JAVASCRIPT入门经典</h1>
           <div class='article-info'>
-              <span><span>作者：</span><a href=''>racts</a> </span>
-              <span><span>时间：</span><a href=''>2018年11月</a> </span>
-              <span><span>阅读：</span><a href=''>119</a> </span>
-              <span><span>评论：</span><a href=''>10</a> </span>
+            <span><span>作者：</span><a href=''>racts</a> </span>
+            <span><span>时间：</span><a href=''>2018年11月</a> </span>
+            <span><span>阅读：</span><a href=''>119</a> </span>
+            <span><span>评论：</span><a href=''>10</a> </span>
           </div>
           <div class='keyWords'>JavaScript的发展历程</div>
-          <div class='readall'><button onclick=''>阅读全文</button></div>
+          <div class='readall'>
+            <button onclick=''>阅读全文</button>
+          </div>
         </li>
       </ul>
     </div>
     <div class='info'>
+      {% if userInfo._id %}
+      <div class='userinfo'>
+        <p class='info-title'>用户信息</p>
+        <div class='name' id='name'>{{userInfo.username}}</div>
+        {% if userInfo.isAdmin %}
+        <div class='welcome' id='welcome1'>欢迎来到我的博客 <a href='/admin'>进入管理</a> </div>
+        {% else %}
+        <div class='welcome' id='welcome'>欢迎来到我的博客</div>
+        {% endif %}
+        <div class='btn' id='btn'>
+          <button>退出</button>
+        </div>
+      </div>
+      {% else %}
       <div class='register'>
         <p class='info-title'>注册</p>
         <div class='input-box'>
@@ -61,7 +81,7 @@
         <div class='btn'>
           <button id='reg-btn'>注册</button>
         </div>
-        <div class='tip'>已有账号？<a href='javascript:void(0)' id='toLogin'>马上登录</a> </div>
+        <div class='tip'>已有账号？<a href='javascript:void(0)' id='toLogin'>马上登录</a></div>
         <div class='remind'></div>
       </div>
       <div class='login hide'>
@@ -75,20 +95,15 @@
         <div class='btn'>
           <button id='login-btn'>登录</button>
         </div>
-        <div class='tip'>还没注册？<a href='javascript:void(0)' id='toReg'>马上注册</a> </div>
+        <div class='tip'>还没注册？<a href='javascript:void(0)' id='toReg'>马上注册</a></div>
         <div class='remind'></div>
       </div>
-      <div class='userinfo hide'>
-        <p class='info-title'>用户信息</p>
-        <div class='name' id='name'></div>
-        <div class='welcome' id='welcome'></div>
-        <div class='btn' id='btn'><button>退出</button></div>
-      </div>
+      {% endif %}
       <div class='community'>
         <p class='info-title'>社区</p>
         <ul>
-          <li><a href=''>制度规则</a> </li>
-          <li><a href=''>社区之家</a> </li>
+          <li><a href=''>制度规则</a></li>
+          <li><a href=''>社区之家</a></li>
         </ul>
       </div>
     </div>

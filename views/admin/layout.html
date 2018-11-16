@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>后台管理</title>
+  <link rel='stylesheet' type='text/css' href='/public/css/common.css'>
+  <link rel='stylesheet' type='text/css' href='/public/css/admin.css'>
+  <script src='/public/js/jquery-3.3.1.min.js'></script>
+  <script src='/public/js/admin.js'></script>
+</head>
+<body>
+<div class='a-container'>
+    <div class='a-header'>
+      <ul>
+        <li><a href='/admin'>后台管理</a> </li>
+        <li><a href=''>用户管理</a> </li>
+      </ul>
+      <div class='a-info'>
+        <span>{{userInfo.username}}</span>
+        <span><a href='/'>退出</a></span>
+      </div>
+    </div>
+    <div class='a-content'>
+      {% block main %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>

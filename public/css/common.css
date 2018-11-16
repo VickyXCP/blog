@@ -1,0 +1,36 @@
+/*common style*/
+/*----------------------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, .container {
+    width: 100%;
+    height: 100%;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.clearfix:after {
+    display: block;
+    content: '';
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+
+.hide {
+    display: none;
+}
+
+.show{
+    display: block;
+}

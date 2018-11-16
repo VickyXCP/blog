@@ -1,0 +1,25 @@
+.a-header{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #fad6a3;
+    box-shadow: 2px 2px 2px 2px #ccc;
+    padding-left: 50px;
+}
+.a-header, ul{
+    /*text-align: center;*/
+}
+.a-header ul li{
+    display: inline-block;
+    margin-right: 20px;
+}
+.a-info{
+    position: absolute;
+    right: 50px;
+    top: 0;
+}
+.a-content{
+    padding: 20px;
+    text-align: center;
+}

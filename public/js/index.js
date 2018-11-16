@@ -18,13 +18,13 @@ $(function () {
 	
 	toLogin.on('click', () => {
 		register.hide()
-		userinfo.hide()
+		// userinfo.hide()
 		login.show()
 	})
 	
 	toReg.on('click', () => {
 		login.hide()
-		userinfo.hide()
+		// userinfo.hide()
 		register.show()
 	})
 	//注册
@@ -48,12 +48,14 @@ $(function () {
 					setTimeout(()=>{
 						login.show()
 						register.hide()
-						userinfo.hide()
+						// userinfo.hide()
 					}, 1000)
 				}
 			}
 		})
 	})
+	
+	// console.log($.cookie())
 	
 //	登录
 	login_btn.on('click', ()=>{
@@ -72,13 +74,26 @@ $(function () {
 				}, 1000)
 				if (!res.code){
 					setTimeout(()=>{
-						userinfo.show()
-						userinfo.find('.name').html(res.userInfo.username)
-						userinfo.find('.welcome').html('你好，欢迎光临我的博客')
-						login.hide()
-						register.hide()
+						// userinfo.show()
+						// userinfo.find('.name').html(res.userInfo.username)
+						// userinfo.find('.welcome').html('你好，欢迎光临我的博客')
+						// login.hide()
+						// register.hide()
+						window.location.reload()
 					}, 1000)
 				}
+			}
+		})
+	})
+	
+//	登出
+	btn.on('click',()=>{
+		$.ajax({
+			type: 'get',
+			url: '/api/user/logout',
+			success: (res)=>{
+				window.location.reload()
+				console.log(res)
 			}
 		})
 	})

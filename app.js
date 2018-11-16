@@ -7,15 +7,23 @@ const app = express()
 const db = require('./db/db')
 const bodyParser = require('body-parser')
 
+const Cookies = require('cookies')
+
+const users = require('./models/users')
+
 //1.加载模板处理模块
-const ejs = require('ejs')
+// const ejs = require('ejs')
+const swig = require('swig')
 //2配置模板应用模块
 //定义当前应用所使用的模板引擎，第一个参数：模板引擎名称，同时也是模板文件的后缀；第二个参数：解析处理模板内容的方法
-app.engine('html',ejs.renderFile);
+// app.engine('html', ejs.renderFile);
+app.engine('html', swig.renderFile);
 //3设置模板文件存放的目录,第一个参数必须是views，第二个参数是目录
-app.set('views','./views');
+app.set('views', './views');
 //4注册模板，第一个参数：必须是view engine,第二个参数与定义模板引擎的第一个参数名称一致
-app.set('view engine','html')
+app.set('view engine', 'html')
+//补充：第一次读取会把模板缓存到内存当中，下次会直接读取，因此即使改了模板内容刷新也不会有变化，需要在开发过程中需要取消模板缓存
+swig.setDefaults({cache:false});
 
 //静态文件托管
 /**
@@ -23,7 +31,7 @@ app.set('view engine','html')
  * 静态文件直接读取制定目录下文件返回给用户，动态文件：处理业务逻辑，加载模板，解析模板返回上数据
  */
 //当用户请求的路径ulr以/public开头时，以第二个参数的方式进行处理（直接返回__dirname + '/public'目录下文件）
-app.use('/public',express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -44,10 +52,32 @@ app.use(bodyParser.urlencoded({extended: true}))
 	res.render('index');
 })*/
 
+//设置cookie(cookie在浏览器中保存为字符串格式, 所以要用JSON.parse解析为json对象)
+app.use((req, res, next) => {
+	//调用req的cookies方法把Cookies加载到req对象里面
+	req.cookies = new Cookies(req, res)
+	req.userInfo = {}; //定义一个全局访问对象
+	//如果浏览器请求有cookie信息,尝试解析cookie
+	if (req.cookies.get('userInfo')) {
+		try {
+			req.userInfo = JSON.parse(req.cookies.get('userInfo'))
+			users.findById(req.userInfo._id).then((result)=>{
+				req.userInfo.isAdmin = Boolean(result.isAdmin)
+				next()
+			})
+		}catch (e) {
+			console.log(e)
+			next()
+		}
+	}else {
+		next()
+	}
+})
+
 //分模块开发
-app.use('/admin',require('./routers/admin'));
-app.use('/api',require('./routers/api'));
-app.use('/',require('./routers/main'));
+app.use('/admin', require('./routers/admin'));
+app.use('/api', require('./routers/api'));
+app.use('/', require('./routers/main'));
 
 //连接数据库
 /*mongoose.connect('mongodb://localhost:27017/blog', (err)=>{
@@ -61,12 +91,12 @@ app.use('/',require('./routers/main'));
 	}
 })*/
 // console.log(db)
-db.on('error', (error)=>{
-	console.log('数据库连接失败：'+error)
+db.on('error', (error) => {
+	console.log('数据库连接失败：' + error)
 })
-db.on('open', ()=>{
+db.on('open', () => {
 	console.log('数据库连接成功')
-	app.listen(8081, ()=>{
+	app.listen(8081, () => {
 		console.log('Server is running on http://localhost:8081')
 	})
 })

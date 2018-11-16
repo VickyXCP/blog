@@ -40,7 +40,7 @@ router.post('/user/register', (req, res, next) => {
 	}
 	users.findOne({username: username}).then((result)=>{
 		if (result){
-			console.log(123)
+			// console.log(123)
 			resData.code = 4
 			resData.message = '用户名已被注册'
 			res.json(resData)
@@ -51,7 +51,7 @@ router.post('/user/register', (req, res, next) => {
 				console.log(err)
 				return
 			}
-			console.log(res)
+			// console.log(res)
 		})
 	}).then((result)=>{
 		resData.message = '注册成功'
@@ -74,15 +74,22 @@ router.post('/user/login', (req, res, next)=>{
 			res.json(resData)
 			return
 		}
-		console.log(result)
+		// console.log(result)
 		resData.message = '登录成功'
 		resData.userInfo = {
 			_id: result[0]._id,
 			username: result[0].username
 		}
+		req.cookies.set('userInfo', JSON.stringify(resData.userInfo))
+		// console.log(req.cookies.get('userInfo'))
 		res.json(resData)
 		return
 	})
+})
+
+router.get('/user/logout', (req, res, next)=>{
+	req.cookies.set('userInfo', null)
+	res.json(resData)
 })
 
 module.exports = router
