@@ -10,19 +10,34 @@
 </head>
 <body>
 <div class='a-container'>
-    <div class='a-header'>
-      <ul>
-        <li><a href='/admin'>后台管理</a> </li>
-        <li><a href=''>用户管理</a> </li>
-      </ul>
-      <div class='a-info'>
-        <span>{{userInfo.username}}</span>
-        <span><a href='/'>退出</a></span>
-      </div>
+  <div class='a-header'>
+    <ul>
+      <li><a href='/admin'>后台管理</a></li>
+      <li><a href='javascript: void(0)' class='list-show'>用户管理</a></li>
+    </ul>
+    <div class='a-info'>
+      <span>{{userInfo.username}}</span>
+      <span><a href='/'>退出</a></span>
     </div>
-    <div class='a-content'>
+  </div>
+  <div class='lists'>
+    <div class='user-list hide'>
+      <ul>
+        <li><a href='javascript: void(0)' id='u-list'>用户列表</a></li>
+        <li><a href='javascript: void(0)' id='c-list'>分类列表</a></li>
+      </ul>
+    </div>
+    <div class='manage-list'>
+      <ul>
+        <li><a href=''>首页</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class='a-content'>
+    <div class='a-wrapper'>
       {% block main %}{% endblock %}
     </div>
+  </div>
 </div>
 </body>
 </html>
