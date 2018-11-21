@@ -1,0 +1,32 @@
+
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class='lists'>
+  <div class='user-list'>
+    <ul>
+      <li><a href='javascript: void(0)' id='u-list'>用户列表</a></li>
+      <li><a href='javascript: void(0)' id='c-list'>分类列表</a></li>
+    </ul>
+  </div>
+</div>
+<div class='a-content'>
+  <div class='a-wrapper'>
+    <div class='a-userNav'>
+      <span><a href='/'>管理首页</a> </span>
+      <span>/</span>
+      <span>失败提示</span>
+    </div>
+    <div>
+      <p>{{message}}
+        {% if url %}
+        <a href='{{url}}'>点击跳转</a>
+        {% else %}
+        <a href='javascript: window.history.back()'>返回上一步</a>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

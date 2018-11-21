@@ -1,21 +1,31 @@
 {% extends 'layout.html' %}
 
 {% block main %}
-  <div class='a-userNav'>
-    <span><a href='/'>管理首页</a> </span>
-    <span>/</span>
-    <span>用户列表</span>
+<div class='lists'>
+  <div class='user-list'>
+    <ul>
+      <li><a href='javascript: void(0)' id='u-list'>用户列表</a></li>
+      <li><a href='/admin/category' id='c-list'>分类列表</a></li>
+    </ul>
   </div>
-  <table class='a-userTable'>
-    <thead>
+</div>
+<div class='a-content'>
+  <div class='a-wrapper'>
+    <div class='a-userNav'>
+      <span><a href='/'>管理首页</a> </span>
+      <span>/</span>
+      <span>用户列表</span>
+    </div>
+    <table class='a-userTable'>
+      <thead>
       <tr>
         <th>ID</th>
         <th>用户名</th>
         <th>密码</th>
         <th>是否是管理员</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       {% for user in users %}
       <tr>
         <td>{{user._id.toString()}}</td>
@@ -32,7 +42,10 @@
         </td>
       </tr>
       {% endfor %}
-    </tbody>
-  </table>
-{% include 'page.html' %}
+      </tbody>
+    </table>
+    {% include 'page.html' %}
+  </div>
+</div>
+
 {% endblock %}

@@ -96,8 +96,8 @@ db.on('error', (error) => {
 })
 db.on('open', () => {
 	console.log('数据库连接成功')
-	app.listen(8081, () => {
-		console.log('Server is running on http://localhost:8081')
+	app.listen(8088, () => {
+		console.log('Server is running on http://localhost:8088')
 	})
 })
 

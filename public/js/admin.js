@@ -1,10 +1,6 @@
 $(function(){
 	const logout = $('#logout')
 	
-	$('.list-show').on('click',()=>{
-		$('.user-list').show()
-		$('.manage-list').hide()
-	})
 	
 	$('#u-list').on('click', ()=>{
 		window.location.href='/admin/user'
