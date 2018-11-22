@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const users = require('../models/users')
 const categories = require('../models/category')
+const contents = require('../models/contents')
 const mongoose = require('mongoose')
 
 router.use((req, res, next) => {
@@ -87,6 +88,7 @@ router.post('/category/add', (req, res) => {
 			message: '名称不能为空',
 			url: '/admin/category'
 		})
+		return Promise.reject()
 	}
 //	查看数据库中是否已存在相同名称
 	categories.findOne({name}).then(result => {
@@ -119,7 +121,6 @@ router.get('/category/edit', (req, res)=>{
 			})
 			return
 		}
-		// console.log(result)
 		res.render('admin/category_edit', {
 			userInfo: req.userInfo,
 			category: result,
@@ -178,6 +179,127 @@ router.get('/category/delete', (req, res)=>{
 			userInfo: req.userInfo,
 			message: '删除成功！',
 			url: '/admin/category'
+		})
+	})
+})
+
+//内容展示
+router.get('/content', (req, res)=>{
+	let page = req.query.page || 1, limit = 2, pages = 0
+	contents.countDocuments().then(count=>{
+		pages = Math.ceil(count/limit)
+		page = Math.max(page, 1)
+		page = Math.min(pages, page)
+		let skip = (Math.max(page, 1) - 1)*limit
+		//populate进行关联category表单
+		contents.find().limit(limit).skip(skip).populate('user').then(result=>{
+			console.log(result)
+			res.render('admin/content_index', {
+				userInfo: req.userInfo,
+				contents: result,
+				page,
+				limit,
+				pages,
+				count
+			})
+		})
+	})
+})
+
+//内容添加
+router.get('/content/add', (req, res)=>{
+	categories.find().sort({_id: -1}).then((result)=>{
+		res.render('admin/content_add', {
+			userInfo: req.userInfo,
+			categories: result
+		})
+	})
+})
+
+// 内容保存
+router.post('/content/add', (req, res)=>{
+	let title = req.body.title, content = req.body.content, desc = req.body.desc, category = req.body.category
+	if (title === '') {
+		res.render('admin/error', {
+			userInfo: req.userInfo,
+			message: '标题不能为空'
+		})
+		return Promise.reject()
+	}
+	if (content === '') {
+		res.render('admin/error', {
+			userInfo: req.userInfo,
+			message: '内容不能为空'
+		})
+		return Promise.reject()
+	}
+	new contents({title, content, desc, category}).save().then(()=>{
+		res.render('admin/success', {
+			userInfo: req.userInfo,
+			message: '内容保存成功',
+			url: '/admin/content'
+		})
+	})
+})
+
+//内容编辑
+router.get('/content/edit', (req, res)=>{
+	const id = mongoose.Types.ObjectId(req.query.id)
+	let selections = null
+	categories.find().sort({_id: -1}).then((result)=>{
+		selections = result
+		return contents.findOne({_id: id}).populate('category')
+	}).then((content)=>{
+		if (!content){
+			res.render('admin/error',{
+				userInfo: req.userInfo,
+				message: '指定内容不存在'
+			})
+			return Promise.reject()
+		} else {
+			res.render('admin/content_edit', {
+				userInfo: req.userInfo,
+				categories: selections,
+				content
+			})
+		}
+	})
+})
+
+//内容编辑保存
+router.post('/content/edit', (req,res)=>{
+	let category = req.body.category, title = req.body.title, desc = req.body.desc, content = req.body.content, id = req.body.id || ''
+	if (title===''){
+		res.render('admin/error', {
+			userInfo: req.userInfo,
+			message: '标题不能为空'
+		})
+		return Promise.reject()
+	}
+	if (content===''){
+		res.render('admin/error', {
+			userInfo: req.userInfo,
+			message: '内容不能为空'
+		})
+		return Promise.reject()
+	}
+	contents.updateOne({_id: id}, {category, title, desc, content}).then(result=>{
+		res.render('admin/success',{
+			userInfo: req.userInfo,
+			message: '内容保存成功',
+			url: '/admin/content'
+		})
+	})
+})
+
+//内容删除
+router.get('/content/delete', (req, res)=>{
+	const id = req.query.id || ''
+	contents.remove({_id: id}).then(result=>{
+		res.render('admin/success', {
+			userInfo: req.userInfo,
+			message: '删除成功',
+			url: '/admin/content'
 		})
 	})
 })

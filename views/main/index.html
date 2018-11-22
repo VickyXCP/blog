@@ -15,7 +15,8 @@
     <ul>
       <li><a href=''>首页</a></li>
       {% for category in categories %}
-      <li><a href=''>{{cate}}</a></li>
+      <li><a href=''>{{category.name}}</a></li>
+      {% endfor %}
     </ul>
   </div>
   <main class=''>

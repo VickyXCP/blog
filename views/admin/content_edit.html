@@ -1,0 +1,53 @@
+
+
+{% extends 'layout.html' %}
+
+{% block main %}
+<div class='lists'>
+  <div class='user-list'>
+    <ul>
+      <li><a href='/admin/user' id='u-list'>用户列表</a></li>
+      <li><a href='/admin/category' id='c-list'>分类列表</a></li>
+      <li><a href='/admin/content' id='con-list'>内容列表</a></li>
+    </ul>
+  </div>
+</div>
+<div class='a-content'>
+  <div class='a-wrapper'>
+    <div class='a-userNav'>
+      <span><a href='/'>管理首页</a> </span>
+      <span>/</span>
+      <span>内容编辑</span>
+    </div>
+    <form method='post'>
+      {{content.category._id.toString()}}
+      <div>
+        <label for='category'>分类：</label>
+        <select name='category' id='category' style='width: 200px; margin-bottom: 10px'>
+          {% for category in categories %}
+          <option value='{{category.id}}'>{{category.name}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for='title'>标题：</label>
+        <input type='text' name='title' id='title' value='{{content.title}}' style='width: 200px; margin-bottom: 10px'>
+        <input type='hidden' name='id' id='id' value='{{(content._id).toString()}}' style='width: 200px; margin-bottom: 10px'>
+      </div>
+      <div>
+        <label for='desc'>描述：</label>
+        <textarea name='desc' id='desc' style='width: 200px; vertical-align: top; margin-bottom: 10px'>{{content.desc}}</textarea>
+        <!--<input type='text' name='desc' id='desc' style='width: 200px'>-->
+      </div>
+      <div>
+        <label for='content'>内容：</label>
+        <textarea name='content' id='content' style='width: 200px; vertical-align: top; margin-bottom: 10px'>{{content.content}}</textarea>
+        <!--<input type='text' name='content' id='content' style='width: 200px'>-->
+      </div>
+      <button type='submit'>提交</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
