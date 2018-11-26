@@ -5,62 +5,73 @@
   <title>博客</title>
   <link rel='stylesheet' href='/public/css/common.css'>
   <link rel='stylesheet' href='/public/css/main.css'>
+  <link rel='stylesheet' href='/public/css/view.css'>
   <script src='/public/js/jquery-3.3.1.min.js'></script>
   <script src='/public/js/jquery.cookie.js'></script>
   <script src='/public/js/index.js'></script>
+  <script src='/public/js/comment.js'></script>
 </head>
 <body>
 <div class='container'>
   <div class='top clearfix'>
     <ul>
       {% if category == '' %}
-      <li><a href='/' class='focus'>首页</a> </li>
+      <li><a href='/' class='focus'>首页</a></li>
       {% else %}
       <li><a href='/'>首页</a></li>
       {% endif %}
       {% for item in categoryList %}
       {% if category == item.id %}
-      <li><a href='/category=item.id' class='focus'>{{item.name}}</a> </li>
+      <li><a href='/category=item.id' class='focus'>{{item.name}}</a></li>
       {% else %}
-      <li><a href='/category=item.id'>{{item.name}}</a> </li>
+      <li><a href='/category=item.id'>{{item.name}}</a></li>
       {% endif %}
       {% endfor %}
     </ul>
   </div>
   <main class=''>
     <div class='content clearfix'>
-      <ul>
-        {% for content in contentList %}
-        <li>
-          <!--<h1>NodeJS开发web</h1>-->
-          <h1>{{content.title}}</h1>
-          <div class='article-info'>
-            <span><span>作者：</span><a href=''>{{content.user.username}}</a> </span>
-            <span><span>时间：</span><a href=''>{{content.addTime | date('Y-m-d H:i:s',-8*60)}}</a> </span>
-            <span><span>阅读：</span><a href=''>{{content.views}}</a> </span>
-            <span><span>评论：</span><a href=''>0</a> </span>
-          </div>
-          <div class='keyWords'>{{content.description}}</div>
-          <div class='readall'>
-            <a href='/view?contentid={{content.id}}'>阅读全文</a>
-          </div>
-        </li>
-        {% endfor %}
-        <!--<li>
-          <h1>JAVASCRIPT入门经典</h1>
-          <div class='article-info'>
-            <span><span>作者：</span><a href=''>racts</a> </span>
-            <span><span>时间：</span><a href=''>2018年11月</a> </span>
-            <span><span>阅读：</span><a href=''>119</a> </span>
-            <span><span>评论：</span><a href=''>10</a> </span>
-          </div>
-          <div class='keyWords'>JavaScript的发展历程</div>
-          <div class='readall'>
-            <button onclick=''>阅读全文</button>
-          </div>
-        </li>-->
-      </ul>
-      {% include '../admin/page.html' %}
+      <!--<h1>NodeJS开发web</h1>-->
+      <h1>{{content.title}}</h1>
+      <div class='article-info'>
+        <span><span>作者：</span><a href=''>{{content.user.username}}</a> </span>
+        <span><span>时间：</span><a href=''>{{content.addTime | date('Y-m-d H:i:s',-8*60)}}</a> </span>
+        <span><span>阅读：</span><a href=''>{{content.views}}</a> </span>
+        <span><span>评论：</span><a href=''>0</a> </span>
+      </div>
+      <div class='keyWords'>{{content.description}}</div>
+      <div id='inner'>
+        {{content.content}}
+      </div>
+      <div class='comment'>
+        <div>
+          <strong>评论区</strong>
+          <span>一共有<span>{{content.comments.length}}</span>条评论</span>
+        </div>
+        {% if userInfo._id %}
+        <div>
+          <textarea id='cont'></textarea>
+          <input type='hidden' id='contentid' value='{{content.id}}'>
+          <button class='commentBtn'>提交</button>
+        </div>
+        {% else %}
+        <div>您还没有登录，请先<a href=''>登录</a></div>
+        {% endif %}
+        <ul class='comment-list'>
+          {% for comment in content.comments %}
+          <li>
+            <div><p>{{comment.username}}</p>
+              <p>{{comment.postTime | date('Y-m-d H:i:s',-8*60)}}</p></div>
+            <div>{{comment.content}}</div>
+          </li>
+          {% endfor %}
+        </ul>
+        <div class='pagination'>
+          <span class='pre'><a href='javascript: void (0)'>上一页</a></span>
+          <span class='pageInfo'></span>
+          <span class='next'><a href='javascript: void (0)'>下一页</a></span>
+        </div>
+      </div>
     </div>
     <div class='info'>
       {% if userInfo._id %}
@@ -68,7 +79,7 @@
         <p class='info-title'>用户信息</p>
         <div class='name' id='name'>{{userInfo.username}}</div>
         {% if userInfo.isAdmin %}
-        <div class='welcome' id='welcome1'>欢迎来到我的博客 <a href='/admin'>进入管理</a> </div>
+        <div class='welcome' id='welcome1'>欢迎来到我的博客 <a href='/admin'>进入管理</a></div>
         {% else %}
         <div class='welcome' id='welcome'>欢迎来到我的博客</div>
         {% endif %}

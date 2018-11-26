@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const users = require('../models/users')
+const contents = require('../models/contents')
 
 router.get('/user', (req, res, next) => {
 	res.send('api')
@@ -90,6 +91,23 @@ router.post('/user/login', (req, res, next)=>{
 router.get('/user/logout', (req, res, next)=>{
 	req.cookies.set('userInfo', null)
 	res.json(resData)
+})
+
+router.post('/comment/post', (req, res, next)=>{
+	const contentid = req.body.contentid || ''
+	const postData = {
+		username: req.userInfo.username,
+		postTime: new Date(),
+		content: req.body.content
+	}
+	contents.findOne({_id: contentid}).then(content=>{
+		content.comments.push(postData)
+		return content.save()
+	}).then(newContent=>{
+		resData.message = '评论成功'
+		resData.data = newContent
+		res.json(resData)
+	})
 })
 
 module.exports = router

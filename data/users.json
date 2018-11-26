@@ -1,0 +1,42 @@
+﻿{
+  "_id" : ObjectId("5bed324fca70332bcc800d16"),
+  "username" : "admin",
+  "password" : "123456",
+  "isAdmin" : "false",
+  "__v" : 0
+}
+{
+  "_id" : ObjectId("5bee734d0437002f9003beaa"),
+  "isAdmin" : true,
+  "username" : "super",
+  "password" : "123456",
+  "__v" : 0
+}
+{
+  "_id" : ObjectId("5bf26d23407c4f1818fadbcb"),
+  "isAdmin" : false,
+  "username" : "admin1",
+  "password" : "123456",
+  "__v" : 0
+}
+{
+  "_id" : ObjectId("5bf26d2b407c4f1818fadbcc"),
+  "isAdmin" : false,
+  "username" : "admin2",
+  "password" : "123456",
+  "__v" : 0
+}
+{
+  "_id" : ObjectId("5bf26d35407c4f1818fadbcd"),
+  "isAdmin" : false,
+  "username" : "admin3",
+  "password" : "123456",
+  "__v" : 0
+}
+{
+  "_id" : ObjectId("5bf26d3b407c4f1818fadbce"),
+  "isAdmin" : false,
+  "username" : "admin4",
+  "password" : "123456",
+  "__v" : 0
+}

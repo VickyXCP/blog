@@ -34,3 +34,7 @@ a {
 .show{
     display: block;
 }
+
+.focus{
+    color: red !important;
+}

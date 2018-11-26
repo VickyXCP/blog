@@ -101,7 +101,7 @@ router.post('/category/add', (req, res) => {
 		} else {
 			return new categories({name: name}).save()
 		}
-	}).then(result => {
+	}).then(() => {
 		res.render('admin/success', {
 			userInfo: req.userInfo,
 			message: '分类保存成功',
@@ -192,8 +192,7 @@ router.get('/content', (req, res)=>{
 		page = Math.min(pages, page)
 		let skip = (Math.max(page, 1) - 1)*limit
 		//populate进行关联category表单
-		contents.find().limit(limit).skip(skip).populate('user').then(result=>{
-			console.log(result)
+		contents.find().sort({_id:-1}).limit(limit).skip(skip).populate(['category','user']).then(function(result){
 			res.render('admin/content_index', {
 				userInfo: req.userInfo,
 				contents: result,
@@ -233,6 +232,7 @@ router.post('/content/add', (req, res)=>{
 		})
 		return Promise.reject()
 	}
+	console.log(desc)
 	new contents({title, content, desc, category}).save().then(()=>{
 		res.render('admin/success', {
 			userInfo: req.userInfo,

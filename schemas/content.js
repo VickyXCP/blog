@@ -7,7 +7,7 @@ module.exports = new mongoose.Schema({
 	},
 	title: String,
 	//关联字段 用户id
-	admin: {
+	user: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'users'
 	},
@@ -21,10 +21,14 @@ module.exports = new mongoose.Schema({
 	},
 	description: {
 		type: String,
-		default: ''
+		default: String
 	},
 	content: {
 		type: String,
 		default: ''
+	},
+	comments: {
+		type: Array,
+		default: []
 	}
 })
