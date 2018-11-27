@@ -58,6 +58,9 @@
         <div>您还没有登录，请先<a href=''>登录</a></div>
         {% endif %}
         <ul class='comment-list'>
+          <!--{% if comments.length==0 %}
+          <li>还没有评论</li>
+          {% else %}
           {% for comment in content.comments %}
           <li>
             <div><p>{{comment.username}}</p>
@@ -65,11 +68,12 @@
             <div>{{comment.content}}</div>
           </li>
           {% endfor %}
+          {% endif %}-->
         </ul>
         <div class='pagination'>
-          <span class='pre'><a href='javascript: void (0)'>上一页</a></span>
+          <span class='pre'><a href='javascript:void (0)' class='a-pre'>上一页</a></span>
           <span class='pageInfo'></span>
-          <span class='next'><a href='javascript: void (0)'>下一页</a></span>
+          <span class='next'><a href='javascript:void (0)' class='a-next'>下一页</a></span>
         </div>
       </div>
     </div>

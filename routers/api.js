@@ -93,6 +93,15 @@ router.get('/user/logout', (req, res, next)=>{
 	res.json(resData)
 })
 
+router.get('/comment', (req, res)=>{
+	let contentid = req.query.contentid || ''
+	contents.findOne({_id: contentid}).then((result)=>{
+		resData.message = '查找成功'
+		resData.data = result
+		res.json(resData)
+	})
+})
+
 router.post('/comment/post', (req, res, next)=>{
 	const contentid = req.body.contentid || ''
 	const postData = {
